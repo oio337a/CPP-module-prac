@@ -48,7 +48,7 @@ void Phonebook::add_contact(int i)
 	this->contacts[i].set_darkest_secret(user_input("darkest secret: "));
 }
 
-static void print_info(std::string message)
+static void print_text(std::string message)
 {
 	if (message.length() > 10)
 	{
@@ -82,16 +82,28 @@ void Phonebook::search_contact()
 			std::string temp;
 			ss >> temp;
 			std::cout << "|";
-			print_info(temp);
+			print_text(temp);
 			ss.clear();
 			std::cout << "|";
-			print_info(this->contacts[i].get_first_name());
+			print_text(this->contacts[i].get_first_name());
 			std::cout << "|";
-			print_info(this->contacts[i].get_last_name());
+			print_text(this->contacts[i].get_last_name());
 			std::cout << "|";
-			print_info(this->contacts[i].get_nickname());
+			print_text(this->contacts[i].get_nickname());
 			std::cout << "|";
 			std::cout << std::endl;
 		}
 	}
+	std::string str;
+	
+	std::cout << "탐색할 인덱스를 선택하세요: ";
+	std::getline(std::cin, str);
+	ss << str;
+	int index;
+	ss >> index;
+	std::cout << "first name: " << this->contacts[index - 1].get_first_name() << std::endl;
+	std::cout << "last name: " << this->contacts[index - 1].get_last_name() << std::endl;
+	std::cout << "nickname: " << this->contacts[index - 1].get_nickname() << std::endl;
+	std::cout << "phone number: " << this->contacts[index - 1].get_phone_number() << std::endl;
+	std::cout << "darkest secret: " << this->contacts[index - 1].get_darkest_secret() << std::endl;
 }

@@ -11,4 +11,5 @@ class Phonebook
 		~Phonebook();
 		void add_contact(int i);
 		void search_contact();
+		void print_info(int i);
 };
