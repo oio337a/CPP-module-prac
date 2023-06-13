@@ -1,33 +1,34 @@
 #include <iostream>
+#include <iomanip>
 #include "Phonebook.hpp"
 
 int main(void)
 {
 	std::string	str;
 	Phonebook phonebook;
+	int i = 0;
 
 	while (1)
 	{
 		std::cout << "Enter a command: ";
 		std::getline(std::cin, str);
-		if (str == "EXIT" || str == "exit")
+		if (str == "EXIT")
 			break ;
-		else if (str == "ADD" || str == "add")
+		else if (str == "ADD")
 		{
-			std::cout << "             ADD" << std::endl;
-			std::cout << "=============================" << std::endl;
-			phonebook.add_contact();
+			std::cout << std::setw(25) << std::right << "ADD" << std::endl;
+			i %= 8;
+			phonebook.add_contact(i);
+			i++;
 		}
-		else if (str == "SEARCH" || str == "search")
+		else if (str == "SEARCH")
 		{
-			std::cout << "            SEARCH" << std::endl;
-			std::cout << "=============================" << std::endl;
+			std::cout << std::setw(25) << std::right << "SEARCH" << std::endl;
 			phonebook.search_contact();
 		}
 		else
 		{
-			std::cout << "       Invalid command" << std::endl;
-			std::cout << "=============================" << std::endl;
+			std::cout << std::setw(30) << std::right << "Invalid command" << std::endl;
 		}
 	}
 	return 0;

@@ -9,8 +9,6 @@ class Phonebook
 	public:
 		Phonebook();
 		~Phonebook();
-		void add_contact();
+		void add_contact(int i);
 		void search_contact();
-		bool validate(std::string str);
-		std::string user_input(std::string message);
 };
