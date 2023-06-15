@@ -24,10 +24,16 @@ int main(void)
 			std::cout << std::setw(25) << std::right << "SEARCH" << std::endl;
 			phonebook.search_contact();
 		}
+		else if (std::cin.eof())
+		{
+			std::cout << "eof BYE" << std::endl;
+			break ;
+		}
 		else
 		{
 			std::cout << std::setw(30) << std::right << "Invalid command" << std::endl;
 		}
+		str.clear();
 	}
 	return 0;
 }

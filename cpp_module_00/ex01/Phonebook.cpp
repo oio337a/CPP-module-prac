@@ -40,12 +40,17 @@ static std::string user_input(std::string message, int key)
 	std::string str;
 
 	std::cout << message;
-	std::getline(std::cin, str);
-	while (!validate(str, key))
+	while (!std::cin.eof())
 	{
-		std::cout << "!!! invalid !!!" << std::endl;
-		std::cout << message;
 		std::getline(std::cin, str);
+		if (!validate(str, key))
+		{
+			std::cout << "!!! invalid !!!" << std::endl;
+			if (!std::cin.eof())
+				std::cout << message;
+		}
+		else
+			return str;
 	}
 	return str;
 }
@@ -53,10 +58,20 @@ static std::string user_input(std::string message, int key)
 void Phonebook::add_contact(int i)
 {
 	this->contacts[i].set_first_name(user_input("first name: ", 0));
+	if (std::cin.eof())
+		return;
 	this->contacts[i].set_last_name(user_input("last name: ", 0));
+	if (std::cin.eof())
+		return;
 	this->contacts[i].set_nickname(user_input("nickname: ", 0));
+	if (std::cin.eof())
+		return;
 	this->contacts[i].set_phone_number(user_input("phone number: ", 1));
+	if (std::cin.eof())
+		return;
 	this->contacts[i].set_darkest_secret(user_input("darkest secret: ", 2));
+	if (std::cin.eof())
+		return;
 }
 
 static void print_text(std::string message)
@@ -118,13 +133,21 @@ void Phonebook::search_contact()
 	int index;
 	while (1)
 	{
-		std::cout << "탐색할 인덱스를 선택하세요: ";
+		std::cout << "탐색할 인덱스를 선택하세요 (1 ~ 8): ";
 		std::getline(std::cin, str);
-		if (!validate(str, 1))
-			continue;
+		if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			return ;
+		}
 		ss << str;
 		ss >> index;
 		ss.clear();
+		if (!validate(str, 1) || index <= 0 || index >= 9)
+		{
+			std::cout << std::setw(30) << std::right << "Invalid command" << std::endl;
+			continue;
+		}
 		if (index > 0 && index < 9)
 		{
 			if (!this->contacts[index - 1].get_first_name().empty())
