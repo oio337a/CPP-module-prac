@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include "Contact.hpp"
@@ -11,5 +12,4 @@ class Phonebook
 		~Phonebook();
 		void add_contact(int i);
 		void search_contact();
-		void print_info(int i);
 };

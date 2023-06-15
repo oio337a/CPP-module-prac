@@ -12,25 +12,36 @@ Phonebook::~Phonebook()
 {
 }
 
-static bool validate(std::string str)
+static bool validate(std::string str, int key)
 {
 	if (!str.length())
 		return 0;
-	for (size_t i = 0; i < str.length(); i++)
+	if (key == 0)
 	{
-		if (!isalnum(str[i]))
-			return 0;
+		for (size_t i = 0; i < str.length(); i++)
+		{
+			if (!isalpha(str[i]))
+				return 0;
+		}
+	}
+	if (key == 1)
+	{
+		for (size_t i = 0; i < str.length(); i++)
+		{
+			if (!isdigit(str[i]))
+				return 0;
+		}
 	}
 	return 1;
 }
 
-static std::string user_input(std::string message)
+static std::string user_input(std::string message, int key)
 {
 	std::string str;
 
 	std::cout << message;
 	std::getline(std::cin, str);
-	while (!validate(str))
+	while (!validate(str, key))
 	{
 		std::cout << "!!! invalid !!!" << std::endl;
 		std::cout << message;
@@ -41,11 +52,11 @@ static std::string user_input(std::string message)
 
 void Phonebook::add_contact(int i)
 {
-	this->contacts[i].set_first_name(user_input("first name: "));
-	this->contacts[i].set_last_name(user_input("last name: "));
-	this->contacts[i].set_nickname(user_input("nickname: "));
-	this->contacts[i].set_phone_number(user_input("phone number: "));
-	this->contacts[i].set_darkest_secret(user_input("darkest secret: "));
+	this->contacts[i].set_first_name(user_input("first name: ", 0));
+	this->contacts[i].set_last_name(user_input("last name: ", 0));
+	this->contacts[i].set_nickname(user_input("nickname: ", 0));
+	this->contacts[i].set_phone_number(user_input("phone number: ", 1));
+	this->contacts[i].set_darkest_secret(user_input("darkest secret: ", 2));
 }
 
 static void print_text(std::string message)
@@ -59,10 +70,8 @@ static void print_text(std::string message)
 		std::cout << std::setw(10) << std::right << message;
 }
 
-void Phonebook::search_contact()
+static void print_contents(void)
 {
-	std::stringstream ss;
-
 	std::cout << "|";
 	std::cout << std::setw(10) << std::right << "index";
 	std::cout << "|";
@@ -73,7 +82,18 @@ void Phonebook::search_contact()
 	std::cout << std::setw(10) << std::right << "nickname";
 	std::cout << "|";
 	std::cout << std::endl;
+}
 
+void Phonebook::search_contact()
+{
+	std::stringstream ss;
+
+	if (this->contacts[0].get_first_name().empty())
+	{
+		std::cout << "탐색할 주소록이 없습니다. ADD를 선행해주세요." << std::endl;
+		return;
+	}
+	print_contents();
 	for (int i = 0; i < 8; i++)
 	{
 		if (!this->contacts[i].get_first_name().empty())
@@ -100,11 +120,17 @@ void Phonebook::search_contact()
 	{
 		std::cout << "탐색할 인덱스를 선택하세요: ";
 		std::getline(std::cin, str);
+		if (!validate(str, 1))
+			continue;
 		ss << str;
 		ss >> index;
 		ss.clear();
 		if (index > 0 && index < 9)
-			break;
+		{
+			if (!this->contacts[index - 1].get_first_name().empty())
+				break;
+			std::cout << "해당 인덱스는 비어있습니다: " << std::endl;
+		}
 	}
 	std::cout << "first name: " << this->contacts[index - 1].get_first_name() << std::endl;
 	std::cout << "last name: " << this->contacts[index - 1].get_last_name() << std::endl;
