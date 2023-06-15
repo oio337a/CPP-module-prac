@@ -95,12 +95,17 @@ void Phonebook::search_contact()
 		}
 	}
 	std::string str;
-	
-	std::cout << "탐색할 인덱스를 선택하세요: ";
-	std::getline(std::cin, str);
-	ss << str;
 	int index;
-	ss >> index;
+	while (1)
+	{
+		std::cout << "탐색할 인덱스를 선택하세요: ";
+		std::getline(std::cin, str);
+		ss << str;
+		ss >> index;
+		ss.clear();
+		if (index > 0 && index < 9)
+			break;
+	}
 	std::cout << "first name: " << this->contacts[index - 1].get_first_name() << std::endl;
 	std::cout << "last name: " << this->contacts[index - 1].get_last_name() << std::endl;
 	std::cout << "nickname: " << this->contacts[index - 1].get_nickname() << std::endl;
