@@ -136,12 +136,12 @@ void Phonebook::search_contact()
 			std::cout << std::endl;
 			return ;
 		}
-		ss << str;
-		ss >> index;
-		ss.clear();
+		std::stringstream ss2(str);
+		ss2 >> index;
 		if (!validate(str, 1) || index <= 0 || index >= 9)
 		{
 			std::cout << std::setw(30) << std::right << "Invalid command" << std::endl;
+			ss2.clear();
 			continue;
 		}
 		if (index > 0 && index < 9)
