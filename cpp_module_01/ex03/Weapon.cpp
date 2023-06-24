@@ -1,15 +1,15 @@
 #include "Weapon.hpp"
 
-Weapon::Weapon(std::string type)
+Weapon::Weapon(std::string type) : type(type)
 {
-	this->type = type;
+	std::cout << this->type << " 이 생성되었어요. " << std::endl;
 }
 
 Weapon::~Weapon()
 {
 }
 
-const std::string &Weapon::getType() const
+const std::string& Weapon::getType()
 {
 	return this->type;
 }

@@ -1,9 +1,8 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA(std::string name, Weapon &weapon)
+HumanA::HumanA(std::string name, Weapon &weapon) : name(name), weapon(weapon)
 {
-	this->name = name;
-	this->weapon = weapon;
+	std::cout << this->name << " 이 생성되었어요. " << std::endl;
 }
 
 HumanA::~HumanA()
