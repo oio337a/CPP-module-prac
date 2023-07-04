@@ -10,16 +10,17 @@ int main(int ac, char *av[])
 	std::string out;
 	std::string	str;
 
-	s1 = av[2];
-	s2 = av[3];
-	int s1_len = s1.length();
-	int s2_len = s2.length();
-
 	if (ac != 4)
 	{
 		std::cout << " we need 3 arg " << std::endl;
 		return 1;
 	}
+	
+	s1 = av[2];
+	s2 = av[3];
+	int s1_len = s1.length();
+	int s2_len = s2.length();
+
 	if (!s1_len || !s2_len)
 	{
 		std::cout << " s1, s2 길이는 1이상이여야합니다. " << std::endl;
@@ -33,17 +34,17 @@ int main(int ac, char *av[])
 	}
 	out = av[1];
 	out.append(".replace");
-	outname.open(out);
+	outname.open(out.c_str());
 	if (outname.fail())
 	{
 		std::cout << " can't read outfile " << std::endl;
 		return 1;
 	}
-	while (!filename.eof())
+	while (1)
 	{
 		std::getline(filename, str);
 		size_t	s1_idx = 0;
-		while (!filename.eof())
+		while (1)
 		{
 			s1_idx = str.find(s1, s1_idx);
 			if (s1_idx == std::string::npos)
@@ -52,7 +53,10 @@ int main(int ac, char *av[])
 			str.insert(s1_idx, s2);
 			s1_idx += s2_len;
 		}
-		outname << str << std::endl;
+		outname << str;
+		if (filename.eof())
+			break ;
+		outname << std::endl;
 	}
 	filename.close();
 	outname.close();
