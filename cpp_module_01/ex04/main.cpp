@@ -1,62 +1,70 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 
-int main(int ac, char *av[])
+int main(int argc, char **argv)
 {
-  std::ifstream filename;
-  std::string s1;
-  std::string s2;
-  std::ofstream outname;
-  std::string out;
-  std::string str;
+	std::string filename, filename_replace, s1, s2, aux;
+	std::fstream filein, fileout;
+	int i, j;
+	char  c;
+	
+	if (argc != 4)
+	{
+		std::cout << "Invalid number of arguments" << std::endl;
+		return (1);
+	}
+	filename = argv[1];
+	filename_replace = filename;
+	filename_replace.append(".replace");
+	s1 = argv[2];
+	s2 = argv[3];
 
-  if (ac != 4)
-  {
-    std::cout << " we need 3 arg " << std::endl;
-    return 1;
-  }
+	filein.open(filename.c_str(), std::ios::in);
+	if (!filein)
+	{
+		std::cout << "Couldn't open input file. Try Again!" << std::endl;
+		return (1);
+	}
 
-  s1 = av[2];
-  s2 = av[3];
-  int s1_len = s1.length();
-  int s2_len = s2.length();
+	fileout.open(filename_replace.c_str(), std::ios::out);
+	if (!fileout)
+	{
+		std::cout << "Couldn't open output file. Try Again!" << std::endl;
+		return (1);
+	}
 
-  if (!s1_len || !s2_len)
-  {
-    std::cout << " s1, s2 길이는 1이상이여야합니다. " << std::endl;
-    return 1;
-  }
-  filename.open(av[1]);
-  if (filename.fail())
-  {
-    std::cout << " can't read infile " << std::endl;
-    return 1;
-  }
-  out = av[1];
-  out.append(".replace");
-  outname.open(out.c_str());
-  if (outname.fail())
-  {
-    std::cout << " can't read outfile " << std::endl;
-    return 1;
-  }
-  while (!filename.eof())
-  {
-    std::getline(filename, str);
-    size_t s1_idx = 0;
-    while (!filename.eof())
-    {
-      s1_idx = str.find(s1, s1_idx);
-      if (s1_idx == std::string::npos)
-        break;
-      str.erase(s1_idx, s1_len);
-      str.insert(s1_idx, s2);
-      s1_idx += s2_len;
-    }
-    outname << str << std::endl;
-  }
-  filename.close();
-  outname.close();
-
-  return 0;
+	j = 0;
+	while (!filein.eof())
+	{
+		if (j == 0)
+			filein >> std::noskipws >> c;
+		else
+			j = 0;
+		if (filein.eof())
+			break;
+		if (c == s1.c_str()[0])
+		{
+			aux = "";
+			aux.append(1, c);
+			i = 1;
+			while (i < (int)s1.length() && !filein.eof())
+			{
+				filein >> std::noskipws >> c;
+				if (c != s1.c_str()[i])
+				{
+					j = 1;
+					break ;
+				}
+				aux.append(1, c);
+				i++;
+				std::cout << i << std::endl;
+			}
+			if (i == (int)s1.length())
+				fileout << s2;
+			else
+				fileout << aux;
+		}
+		else
+			fileout << c;
+	}
 }
