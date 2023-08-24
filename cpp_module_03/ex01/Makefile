@@ -1,4 +1,3 @@
 NAME	= ex01
-SRCS	= main.cpp ClapTrap.cpp
-INCS	= ClapTrap.hpp
+SRCS	= main.cpp ClapTrap.cpp ScavTrap.cpp
 include ../template.mk
