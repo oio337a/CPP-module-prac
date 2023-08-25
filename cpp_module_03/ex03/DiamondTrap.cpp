@@ -1,32 +1,20 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yongmin <yongmin@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 16:00:55 by suhwpark          #+#    #+#             */
-/*   Updated: 2023/08/25 01:49:45 by yongmin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap() : name(ClapTrap::name)
+DiamondTrap::DiamondTrap() : _name(ClapTrap::name)
 {
-	ClapTrap::name = name + "_clap_name";
+	ClapTrap::name = _name + "_clap_name";
 	this->attackDamage = 30;
 	std::cout << "DiamondTrap default construct called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string name) : name(name)
+DiamondTrap::DiamondTrap(std::string name) : _name(name)
 {
 	ClapTrap::name = name + "_clap_name";
 	this->attackDamage = 30;
 	std::cout << "DiamondTrap " << name << " construct called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap const &ob) : ClapTrap(ob), FragTrap(ob), ScavTrap(ob), name(ob.name)
+DiamondTrap::DiamondTrap(DiamondTrap const &ob) : ClapTrap(ob), FragTrap(ob), ScavTrap(ob), _name(ob.name)
 {
 	std::cout << "DiamondTrap " << this->name << " copy construct called" << std::endl;
 }
@@ -35,30 +23,30 @@ DiamondTrap &DiamondTrap::operator=(DiamondTrap const &ob)
 {
 	if (this != &ob)
 	{
-		this->name = ob.name;
+		this->_name = ob.name;
 		ClapTrap::name = ob.name + "_clap_name";
 		this->hitPoint = ob.hitPoint;
 		this->energyPoint = ob.energyPoint;
 		this->attackDamage = ob.attackDamage;
 	}
-	std::cout << "DiamondTrap " << this->name << " assignation construct called" << std::endl;
+	std::cout << "DiamondTrap " << this->_name << " assignation construct called" << std::endl;
 	return *this;
 }
 
 DiamondTrap::~DiamondTrap()
 {
-	std::cout << "DiamondTrap " << this->name << " destruct called" << std::endl;
+	std::cout << "DiamondTrap " << this->_name << " destruct called" << std::endl;
 }
 
 void DiamondTrap::whoAmI()
 {
 	std::cout << "this ClapTrap name is " << ClapTrap::name << " and " \
-		<< "this DiamondTrap name is " << this->name << std::endl;
+		<< "this DiamondTrap name is " << this->_name << std::endl;
 }
 
 void DiamondTrap::printStatus(void)
 {
-	std::cout	<< "This DiamondTrap name is " << this->name << "\n"
+	std::cout	<< "This DiamondTrap name is " << this->_name << "\n"
 				<< "HitPoint is " << hitPoint << "\n"
 				<< "EnergyPoint is " << energyPoint << "\n"
 				<< "AttackDamage is " << attackDamage << "\n"
