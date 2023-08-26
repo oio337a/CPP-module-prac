@@ -6,11 +6,14 @@ int main()
 {
   Animal *animals[10];
 
-  for (int i = 0; i < 5; i++)
-    animals[i] = new Dog();
-  for (int i = 5; i < 10; i++)
-    animals[i] = new Cat();
-  
+  for (int i = 0; i < 10; i++)
+  {
+    if (i % 2 == 0) {
+      animals[i] = new Dog();
+    } else {
+      animals[i] = new Cat();
+    }
+  }
   std::cout << "---------------------" << std::endl;
 
   Dog *dog = new Dog();
@@ -29,6 +32,6 @@ int main()
 
   for (int i = 0; i < 10; i++)
     delete animals[i];
-
+  // system("leaks ex01");
   return (0);
 }

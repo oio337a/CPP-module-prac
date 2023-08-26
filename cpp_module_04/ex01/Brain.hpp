@@ -3,7 +3,7 @@
 
 class Brain {
   private:
-    std::string ideas[100];
+    std::string *ideas;
   public:
     Brain();
     Brain(const Brain &copy);
@@ -12,4 +12,5 @@ class Brain {
 
     void setIdeas(int index, std::string idea);
     std::string getIdea(int i);
+    std::string *getIdeas() const;
 };

@@ -2,6 +2,10 @@
 
 Brain::Brain()
 {
+  this->ideas = new std::string[100];
+
+  for (int i = 0; i < 100; i++)
+    this->ideas[i] = "idea";
   std::cout << "Brain default constructor called" << std::endl;
 }
 
@@ -23,6 +27,7 @@ Brain &Brain::operator=(const Brain &copy)
 
 Brain::~Brain()
 {
+  delete[] this->ideas;
   std::cout << "Brain destructor called" << std::endl;
 }
 
