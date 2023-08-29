@@ -1,4 +1,4 @@
-#include "Amateria.hpp"
+#include "AMateria.hpp"
 
 AMateria::AMateria() : _type("default")
 {
@@ -35,5 +35,6 @@ std::string const &AMateria::getType() const
 
 void AMateria::use(ICharacter &target)
 {
+  target.getName();
   // std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
 }
