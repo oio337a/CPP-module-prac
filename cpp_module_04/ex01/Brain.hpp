@@ -3,7 +3,7 @@
 
 class Brain {
   private:
-    std::string *ideas;
+    std::string ideas[100];
   public:
     Brain();
     Brain(const Brain &copy);
