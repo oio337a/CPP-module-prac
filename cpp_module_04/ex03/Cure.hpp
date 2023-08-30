@@ -1,16 +1,13 @@
-#pragma once
-#include "AMateria.hpp"
+#ifndef CURE_HPP
+# define CURE_HPP
+# include "AMateria.hpp"
 
-class Cure : public AMateria {
-  private:
-    std::string _type;
-  public:
-    Cure();
-    Cure(const Cure &copy);
-    Cure &operator=(const Cure &copy);
-    std::string const &getType() const;
-    ~Cure();
-
-    AMateria *clone() const;
-    void use(ICharacter &target);
+class Cure : public AMateria{
+	public	:
+			Cure();
+			~Cure();
+			Cure(Cure const &ob);
+			Cure& operator=(Cure const &ob);
+			AMateria *clone() const;
 };
+#endif

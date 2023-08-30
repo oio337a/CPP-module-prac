@@ -1,56 +1,58 @@
 #include "MateriaSource.hpp"
-#include "AMateria.hpp"
 
-MateriaSource::MateriaSource() {
-  for (int i = 0; i < 4; i++)
-    _inventory[i] = NULL;
+MateriaSource::MateriaSource()
+{
+	// std::cout << "MateriaSource Default constructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		this->slot[i] = 0;
 }
 
-MateriaSource::MateriaSource(const MateriaSource &copy) {
-  for (int i = 0; i < 4; i++) {
-    if (copy._inventory[i])
-      _inventory[i] = copy._inventory[i]->clone();
-    else
-      _inventory[i] = NULL;
-  }
+MateriaSource::MateriaSource(MateriaSource const &ob)
+{
+	// std::cout << "MateriaSource Copy constructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		this->slot[i] = ob.slot[i];
 }
 
-MateriaSource &MateriaSource::operator=(const MateriaSource &copy) {
-  if (this != &copy) {
-    for (int i = 0; i < 4; i++) {
-      if (_inventory[i])
-        delete _inventory[i];
-      if (copy._inventory[i])
-        _inventory[i] = copy._inventory[i]->clone();
-      else
-        _inventory[i] = NULL;
-    }
-  }
-  return (*this);
+MateriaSource &MateriaSource::operator=(MateriaSource const &ob)
+{
+	// std::cout << "MateriaSource Assigantion constructor called" << std::endl;
+	if (this != &ob)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (this->slot[i])
+				delete this->slot[i];
+			this->slot[i] = ob.slot[i];
+		}
+	}
+	return *this;
 }
 
-MateriaSource::~MateriaSource() {
-  for (int i = 0; i < 4; i++) {
-    if (_inventory[i])
-      delete _inventory[i];
-  }
+MateriaSource::~MateriaSource()
+{
+	// std::cout << "MateriaSource destructor called" << std::endl;
+	for (int i = 0; i < 4; i++)
+		if (this->slot[i])
+			delete this->slot[i];
 }
 
-void MateriaSource::learnMateria(AMateria *m) {
-  if (!m)
-    return ;
-  for (int i = 0; i < 4; i++) {
-    if (!_inventory[i]) {
-      _inventory[i] = m;
-      return ;
-    }
-  }
+void MateriaSource::learnMateria(AMateria *m)
+{
+	for (int i = 0; i < 4; i++)
+		if (!this->slot[i])
+		{
+			this->slot[i] = m;
+			return ;
+		}
 }
 
-AMateria *MateriaSource::createMateria(std::string const &type) {
-  for (int i = 0; i < 4; i++) {
-    if (_inventory[i] && _inventory[i]->getType() == type)
-      return (_inventory[i]->clone());
-  }
-  return (NULL);
+AMateria *MateriaSource::createMateria(std::string const &type)
+{
+	for(int i = 0; i < 4; i++)
+	{
+		if (this->slot[i] && !this->slot[i]->getType().compare(type))
+			return this->slot[i]->clone();
+	}
+	return 0;
 }
