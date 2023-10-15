@@ -1,32 +1,49 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
 int main() {
-   try {
-      Form test("hihi", 199, 45);
-    } catch(const std::exception &e) {
-      std::cout << e.what() << '\n';
-    }
 
-    try {
-      Form test2("byebye", 24, 0);
-    } catch(const std::exception &e) {
-      std::cout << e.what() << '\n';
-    }
-    Bureaucrat jack("jack", 150);
-    Bureaucrat holly("holly", 1);
+  Bureaucrat yongmipa("yongmipa", 150);
+  Bureaucrat test("test", 1);
 
-    Form a("FormA", 150, 44);
-    Form b("FormB", 119, 140);
+  std::cout << std::endl;
 
-    std::cout << jack << std::endl;
-    std::cout << holly << std::endl;
-    std::cout << a << std::endl;
-    std::cout << b << std::endl;
+  ShrubberyCreationForm shrubbery("test");
+  PresidentialPardonForm presidental("test");
+  RobotomyRequestForm robotomy("test");
 
-    jack.signForm(a);
-    holly.signForm(a);
-    jack.signForm(b);
-    holly.signForm(b);
-  return 0;
+
+  std::cout << shrubbery << std::endl;
+  std::cout << presidental << std::endl;
+  std::cout << robotomy << std::endl;
+  
+  std::cout << std::endl;
+
+  test.executeForm(shrubbery);
+  test.signForm(shrubbery);
+  test.executeForm(shrubbery);
+
+  std::cout << std::endl;
+
+  test.executeForm(presidental);
+  test.signForm(presidental);
+  test.executeForm(presidental);
+
+  std::cout << std::endl;
+
+  test.executeForm(robotomy);
+  test.signForm(robotomy);
+  test.executeForm(robotomy);
+  std::cout << std::endl;
+
+  try {
+      yongmipa.executeForm(shrubbery);
+  } catch (std::exception &e) {
+      std::cout << e.what() << std::endl;
+  }
+
+  return (0);
 }

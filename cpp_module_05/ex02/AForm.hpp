@@ -22,7 +22,6 @@ public:
   AForm &operator=(const AForm &obj);
   AForm(const std::string& name, const std::string& target, int signGrade, int executeGrade);
 
-
   void checkGrade(int grade);
 
   const std::string& getName() const;
