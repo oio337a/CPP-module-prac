@@ -1,67 +1,83 @@
 #include "Form.hpp"
 
-Form::Form(): _name("default"), _signed(false), _gradeToSign(150), _gradeToExecute(150) {}
-
-Form::Form(const std::string &name, int gradeToSign, int gradeToExecute): _name(name), _signed(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
-  if (gradeToSign < 1 || gradeToExecute < 1)
-    throw GradeTooHighException();
-  else if (gradeToSign > 150 || gradeToExecute > 150)
-    throw GradeTooLowException();
+Form::~Form() {
+    // std::cout << "destructor called" << std::endl;
 }
 
-Form::~Form() {}
-
-Form::Form(Form const &copy): _name(copy.getName()), _signed(copy.getSigned()), _gradeToSign(copy.getGradeToSign()), _gradeToExecute(copy.getGradeToExecute()) {}
-
-Form &Form::operator=(Form const &copy) {
-  if (this != &copy) {
-    this->_signed = copy.getSigned();
-  }
-  return *this;
+Form::Form(): name("default"), sign(false), signGrade(150), executeGrade(150) {
 }
 
-const std::string &Form::getName() const {
-  return this->_name;
+Form::Form(const Form &obj) : name(obj.getName()), sign(false), signGrade(obj.getSignGrade()), executeGrade(obj.getExecuteGrade()) {
+    checkGrade(obj.getExecuteGrade());
+    checkGrade(obj.getSignGrade());
 }
 
-bool Form::getSigned() const {
-  return this->_signed;
+Form::Form(const std::string& name, int signGrade, int executeGrade) : name(name), sign(false), signGrade(signGrade), executeGrade(executeGrade) {
+    checkGrade(signGrade);
+    checkGrade(executeGrade);
 }
 
-int Form::getGradeToSign() const {
-  return this->_gradeToSign;
+Form &Form::operator=(const Form &obj) {
+    if (this != &obj) {
+        const_cast<std::string&>(this->name) = obj.getName();
+        const_cast<int&>(this->signGrade) = obj.getSignGrade();
+        const_cast<int&>(this->executeGrade) = obj.getExecuteGrade();
+        this->sign = obj.getSign();
+    }
+    return (*this);
 }
 
-int Form::getGradeToExecute() const {
-  return this->_gradeToExecute;
+void Form::checkGrade(int grade) {
+    if (grade > 150)
+        throw GradeTooLowException();
+    if (grade < 1)
+        throw GradeTooHighException();
 }
 
-void Form::beSigned(const Bureaucrat &bureaucrat) {
-  if (bureaucrat.getGrade() > this->_gradeToSign)
-    throw GradeTooLowException();
-  else if (this->_signed)
-    throw AlreadySignedException();
-  else
-    this->_signed = true;
+
+const char * Form::GradeTooHighException::what(void) const throw() {
+    return "Grade too High";
 }
 
-const char *Form::GradeTooHighException::what() const throw() {
-  return "Grade is too high";
+const char * Form::GradeTooLowException::what(void) const throw() {
+    return "Grade too Low";
 }
 
-const char *Form::GradeTooLowException::what() const throw() {
-  return "Grade is too low";
+const char * Form::AlreadySigned::what(void) const throw() {
+    return "already signed";
 }
 
-const char *Form::AlreadySignedException::what() const throw() {
-  return "Form is already signed";
+const std::string& Form::getName() const {
+    return this->name;
+}
+
+int Form::getSignGrade() const {
+    return this->signGrade;
+}
+
+int Form::getExecuteGrade() const {
+    return this->executeGrade;
+}
+
+
+void Form::beSigned(const Bureaucrat &obj)
+{
+    if (this->sign == true) 
+        throw AlreadySigned();
+    if (this->getSignGrade() < obj.getGrade())
+        throw GradeTooLowException();
+    this->sign = true;
+}
+
+bool Form::getSign() const {
+    return this->sign;
 }
 
 std::ostream& operator<<(std::ostream &out, const Form &obj) {
-    out << obj.getName() << " Form sign is " << std::boolalpha << obj.getSigned() 
+    out << obj.getName() << " Form sign is " << std::boolalpha << obj.getSign() 
 
-        << ", signGrade : " << obj.getGradeToSign() 
-        << ", executeGrade : " << obj.getGradeToExecute()
+        << ", signGrade : " << obj.getSignGrade() 
+        << ", executeGrade : " << obj.getExecuteGrade()
         << std::endl;
 
     return out;

@@ -7,7 +7,7 @@ void Bureaucrat::increaseGrade() {
     this->grade--;
 }
 
-void Bureaucrat::decreaseGrade() {
+void Bureaucrat::decresaeGrade() {
     if (this->grade + 1 > 150) {
         throw GradeTooLowException();
     }
