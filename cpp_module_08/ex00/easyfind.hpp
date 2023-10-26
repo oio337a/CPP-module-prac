@@ -3,6 +3,7 @@
 
 # include <iterator>
 # include <iostream>
+# include <algorithm>
 
 
 //find는 찾으면 그 해당 지점의 첫번 째 idx를, 못찾으면 end를 반환한다.
