@@ -1,7 +1,5 @@
 #include "easyfind.hpp"
-#include <algorithm>
 #include <exception>
-#include <iostream>
 #include <string>
 #include <vector>
 #include <deque>

@@ -1,7 +1,6 @@
 #ifndef EASYFIND_HPP
 # define EASYFIND_HPP
 
-# include <algorithm>
 # include <iterator>
 # include <iostream>
 

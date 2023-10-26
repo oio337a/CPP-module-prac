@@ -1,6 +1,5 @@
 #include "Span.hpp"
 #include <ctime>
-#include <algorithm>
 #include <cstdlib>
 
 int main() {
@@ -16,7 +15,7 @@ int main() {
     std::cout << sp.shortestSpan() << std::endl;
     std::cout << sp.longestSpan() << std::endl;
     }
-    const int size = 12345;
+    const int size = 10001;
     std::vector<int> testVector(size);
 
 
