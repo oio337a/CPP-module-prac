@@ -5,7 +5,7 @@ int main(int ac, char **av) {
 		std::cout << "Error : bad argument count" << std::endl;
 		return 1;
 	}
-	std::stack<float> stack;
+	std::stack<double> stack;
 	std::string expression = av[1];
 	if (fillStack(expression, stack))
 		return (2);

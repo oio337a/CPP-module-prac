@@ -6,8 +6,8 @@ bool isOperation(std::string &token) {
 	return false;
 }
 
-void printStack(std::stack<float> stack) {
-	std::stack<float> tmpStack = stack;
+void printStack(std::stack<double> stack) {
+	std::stack<double> tmpStack = stack;
 	if (tmpStack.size() != 1){
 		std::cout << "invalid argument count.." << std::endl;
 		return ;
@@ -16,14 +16,14 @@ void printStack(std::stack<float> stack) {
 }
 
 
-bool exeOperation(std::string token, std::stack<float> &stack) {
+bool exeOperation(std::string token, std::stack<double> &stack) {
 	if (stack.size() <= 1) {
 		std::cout << "Not enough numbers to operate with " << token << std::endl;
 		return true;
 	}
-	float	n2 = stack.top();
+	double	n2 = stack.top();
 	stack.pop();
-	float	n1 = stack.top();
+	double	n1 = stack.top();
 	stack.pop();
 
 	if (token == "+")
@@ -42,7 +42,7 @@ bool exeOperation(std::string token, std::stack<float> &stack) {
 	return false;
 }
 
-bool fillStack(std::string &expression, std::stack<float> stack) {
+bool fillStack(std::string &expression, std::stack<double> stack) {
 	std::istringstream iss(expression);
 	std::string	token;
 
