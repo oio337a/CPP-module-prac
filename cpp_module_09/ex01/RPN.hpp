@@ -6,7 +6,7 @@
 # include <sstream>
 
 bool isOperation(std::string &token);
-bool fillStack(std::string &expression, std::stack<int> stack);
+bool fillStack(std::string &expression, std::stack<float> stack);
 
 
 #endif
