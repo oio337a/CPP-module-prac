@@ -72,6 +72,8 @@ int BitcoinExchange::inputValue(char *filename) const {
 
 		if (iss >> date >> delimiter >> value >> rest)
 			std::cerr << "Bad line : " << line << std::endl;
+		else if (delimiter != '|')
+			std::cout << "Error: bad delimiter" << std::endl;
 		else if (parseValue(value))
 			;
 		else if (parseDate(date))
